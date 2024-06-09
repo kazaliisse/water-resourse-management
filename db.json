@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Clean Water Project",
+      "description": "Providing clean water to rural areas.",
+      "image": "https://i.ndtvimg.com/i/2017-06/solar-energy-powers-clean-water_650x400_71498220341.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Rainwater Harvesting",
+      "description": "Installing rainwater harvesting systems.",
+      "image": "https://cdn1.byjus.com/wp-content/uploads/2023/05/Rainwater-harvesting-1.png"
+    }
+  ]
+}
