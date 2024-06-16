@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         closeContactPopup.addEventListener('click', () => {
-            contactPopup.style.display = 'none';3
+            contactPopup.style.display = 'none';
         });
 
         window.addEventListener('click', (event) => {
@@ -80,5 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.getElementById('nav-links');
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('showing');
+        menuToggle.classList.toggle('showing');
     });
 });

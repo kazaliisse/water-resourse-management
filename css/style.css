@@ -11,6 +11,11 @@ header {
   background-color: #0066cc;
   color: white;
   padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000; 
 }
 
 .nav-container {
@@ -62,7 +67,7 @@ nav ul li a:hover {
 
 /* Main content styles */
 main {
-  padding: 20px;
+  padding: 80px;
 }
 
 /* Hero section styles */
@@ -113,42 +118,75 @@ main {
   height: auto;
 }
 
-/* About section styles */
-#about {
-  margin: 20px 0;
-}
 
-.about-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Team section styles */
+#team {
+  padding: 50px 0;
   text-align: center;
 }
 
-.about-container img {
-  max-width: 70%;
+.team-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: calc(33.33% - 40px);
+  max-width: 300px;
+  margin: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 40%;
   height: auto;
-  margin-bottom: 20px;
 }
 
-.about-content {
-  max-width: 800px;
-}
-
-.about-content h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-.about-content p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  width: 100%;
+.card-content {
   padding: 20px;
 }
 
-/* Footer styles */
+.card-content h3 {
+  margin-top: 0;
+}
 
+.card-button {
+  padding: 10px 20px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: transparent;
+  color: #0066cc;
+  border: 2px solid #0066cc;
+}
+
+@media (max-width: 768px) {
+  .team-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: calc(50% - 40px);
+    max-width: none;
+  }
+}
+
+
+
+
+/* Footer styles */
 footer {
   background-color: #0066cc;
   color: white;
@@ -179,11 +217,13 @@ footer {
 .quick-links ul li {
   margin-bottom: 10px;
 }
-.quick-links ul li a{
+
+.quick-links ul li a {
   text-decoration: none;
   transition: 0.3s ease;
 }
-.quick-links ul li a:hover{
+
+.quick-links ul li a:hover {
   color: orangered;
   text-decoration: underline;
 }
@@ -204,29 +244,17 @@ footer {
 .about-text p {
   margin: 10px 0;
   width: 100%;
-  
-  
 }
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  footer {
-      flex-direction: column;
-  }
-
-  .footer-container {
-      flex-direction: column;
-  }
-}
-
 
 /* Form styles */
-.contact-header{
+.contact-header {
   text-align: center;
 }
-span{
+
+span {
   color: red;
 }
+
 form {
   max-width: 600px;
   margin: 20px auto;
@@ -257,31 +285,29 @@ form button:hover {
   background-color: orangered;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .menu-toggle {
-      display: flex;
-  }
-
-  nav ul {
-      flex-direction: column;
-      display: none;
-      width: 100%;
-      text-align: center;
-  }
-
-  nav ul.showing {
-      display: flex;
-  }
-
-  nav ul li {
-      margin: 10px 0;
-  }
-
-  footer {
-      position: static;
-  }
+/* Contact section styles */
+#contact {
+  padding: 50px 20px;
+  text-align: center;
 }
+
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.map-container {
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 10px 0;
+}
+
 
 /* Modal styles */
 .modal {
@@ -293,8 +319,8 @@ form button:hover {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -321,100 +347,67 @@ form button:hover {
   cursor: pointer;
 }
 
-/* Donation form styles */
-form {
-  max-width: 600px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-}
-
-form label {
-  margin-top: 10px;
-}
-
-form input, form textarea, form select {
-  padding: 10px;
-  margin-top: 5px;
-}
-
-form button {
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #0066cc;
-  color: white;
-  border: none;
+/* Mobile menu toggle button */
+.menu-toggle {
   cursor: pointer;
+  display: none;
+  flex-direction: column;
+  align-items: center;
 }
 
-form button:hover {
-  background-color: #ffcc00;
+.menu-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Responsive styles */
+/* Change hamburger to X when showing */
+.menu-toggle.showing .bar:nth-child(1) {
+  transform: rotate(50deg) translate(15px, 15px);
+}
+
+.menu-toggle.showing .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.showing .bar:nth-child(3) {
+  transform: rotate(-50deg) translate(5px, -5px);
+}
+
+/* Responsive navigation */
+.nav-links.showing {
+  display: block;
+}
+
 @media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+  }
+
   .menu-toggle {
-      display: flex;
+    display: flex;
+    margin-top: 10px;
+    
   }
 
   nav ul {
-      flex-direction: column;
-      display: none;
-      width: 100%;
-      text-align: center;
+    flex-direction: column;
+    display: none;
+    width: 100%;
+    text-align: right;
   }
 
   nav ul.showing {
-      display: flex;
+    display: flex;
   }
 
   nav ul li {
-      margin: 10px 0;
+    margin: 10px 0;
   }
-
-  footer {
-      flex-direction: column;
-  }
-
-  .footer-container {
-      flex-direction: column;
+  .contact-header{
+    padding-top: 100px;
   }
 }
-
-/* Modal styles
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-}
-
-.close-btn {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-} */
