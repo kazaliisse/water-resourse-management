@@ -1,4 +1,4 @@
-/* Basic styles */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -6,7 +6,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Header styles */
+/* noor's header */
 header {
   background-color: #0066cc;
   color: white;
@@ -65,12 +65,12 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
-/* Main content styles */
+
 main {
   padding: 80px;
 }
 
-/* Hero section styles */
+/* noor's home page */
 #hero {
   background: url('https://images.pexels.com/photos/4345855/pexels-photo-4345855.jpeg?auto=compress&cs=tinysrgb&w=600') no-repeat center center/cover;
   color: white;
@@ -95,11 +95,13 @@ main {
   margin: 10px 0 0;
 }
 
-/* Projects section styles */
+/* noor's db.json styling */
 #projects {
   margin: 20px 0;
 }
-
+#projects h2{
+  text-align: center;
+}
 #projects-container {
   display: flex;
   flex-wrap: wrap;
@@ -118,8 +120,82 @@ main {
   height: auto;
 }
 
+/* About  */
+#about-hero {
+  background: url('https://images.pexels.com/photos/4345855/pexels-photo-4345855.jpeg?auto=compress&cs=tinysrgb&w=600') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 150px 20px 100px;
+  position: relative;
+}
 
-/* Team section styles */
+.about-hero-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+#about-hero h1 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+#about-hero p {
+  font-size: 1.2em;
+  margin: 10px 0 0;
+}
+
+
+#mission-vision-section {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+#mission-vision-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.mission-vision-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.mission-card, .vision-card {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.mission-card:hover, .vision-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  border-color: #0066cc;
+}
+
+.mission-card-content, .vision-card-content {
+  padding: 20px;
+}
+
+.mission-card-content h3, .vision-card-content h3 {
+  margin-top: 0;
+}
+
+.mission-card-content p, .vision-card-content p {
+  font-size: 1em;
+  color: #333;
+}
+
+
+/* noor's team */
 #team {
   padding: 50px 0;
   text-align: center;
@@ -144,7 +220,7 @@ main {
 }
 
 .card img {
-  width: 40%;
+  width: 100%;
   height: auto;
 }
 
@@ -185,8 +261,7 @@ main {
 
 
 
-
-/* Footer styles */
+ /* noor's footer */
 footer {
   background-color: #0066cc;
   color: white;
@@ -245,8 +320,7 @@ footer {
   margin: 10px 0;
   width: 100%;
 }
-
-/* Form styles */
+/* noor's form */
 .contact-header {
   text-align: center;
 }
@@ -281,11 +355,11 @@ form button {
   transition: 0.3s ease;
 }
 
-form button:hover {
+/* form button:hover {
   background-color: orangered;
-}
+} */
 
-/* Contact section styles */
+/* noor's contact */
 #contact {
   padding: 50px 20px;
   text-align: center;
@@ -307,9 +381,12 @@ form button:hover {
 .contact-info p {
   margin: 10px 0;
 }
+.donate-container h1{
+  text-align: center;
+}
 
 
-/* Modal styles */
+
 .modal {
   display: none;
   position: fixed;
@@ -347,7 +424,7 @@ form button:hover {
   cursor: pointer;
 }
 
-/* Mobile menu toggle button */
+/
 .menu-toggle {
   cursor: pointer;
   display: none;
@@ -364,7 +441,7 @@ form button:hover {
   transition: all 0.3s ease-in-out;
 }
 
-/* Change hamburger to X when showing */
+
 .menu-toggle.showing .bar:nth-child(1) {
   transform: rotate(50deg) translate(15px, 15px);
 }
