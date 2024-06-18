@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Fetch and display projects if the container exists
+    // Fetch 
     const projectsContainer = document.getElementById('projects-container');
     if (projectsContainer) {
         fetch('db.json')
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Contact form submission
+    // noor's Contact form 
     const contactForm = document.getElementById('contact-form');
     const contactPopup = document.getElementById('contact-popup');
     if (contactForm && contactPopup) {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Donation form submission
+    //noor;s Donation 
     const donationForm = document.getElementById('donation-form');
     const donationPopup = document.getElementById('donation-popup');
     if (donationForm && donationPopup) {
@@ -63,19 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             donationPopup.style.display = 'block';
         });
-
         closeDonationPopup.addEventListener('click', () => {
             donationPopup.style.display = 'none';
         });
-
         window.addEventListener('click', (event) => {
             if (event.target == donationPopup) {
                 donationPopup.style.display = 'none';
             }
         });
     }
-
-    // Toggle menu
+    //noor's Toggle menu
     const menuToggle = document.getElementById('mobile-menu');
     const navLinks = document.getElementById('nav-links');
     menuToggle.addEventListener('click', () => {
