@@ -124,7 +124,6 @@ main {
   max-width: 100%;
   height: auto;
 }
-
 /* About  */
 #about-hero {
   background: url('https://images.pexels.com/photos/4345855/pexels-photo-4345855.jpeg?auto=compress&cs=tinysrgb&w=600') no-repeat center center/cover;
@@ -429,7 +428,7 @@ form button {
   cursor: pointer;
 }
 
-/
+
 .menu-toggle {
   cursor: pointer;
   display: none;

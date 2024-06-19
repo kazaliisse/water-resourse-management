@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Resource management</title>
+    <title>Water Resource Management</title>
     <link rel="icon" type="image/x-icon" href="images-1/logo-1.png">
-
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="nav-container">
-                <div class="logo"><img src="images-1/logo-1.png" alt=""></div>
+                <div class="logo"><img src="images-1/logo-1.png" alt="Logo"></div>
                 <div class="menu-toggle" id="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -45,10 +44,10 @@
 
                     <div id="account-info" style="display: none;">
                         <label for="account-number">Account Number:</label>
-                        <input type="text" id="account-number" name="account-number" required>
+                        <input type="text" id="account-number" name="account-number">
 
                         <label for="pin">PIN:</label>
-                        <input type="password" id="pin" name="pin" required>
+                        <input type="password" id="pin" name="pin">
                     </div>
 
                     <button type="submit" class="card-button">Donate</button>
@@ -89,6 +88,59 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const donationForm = document.getElementById('donation-form');
+            const paymentMethodSelect = document.getElementById('payment-method');
+            const accountInfoDiv = document.getElementById('account-info');
+            const donationPopup = document.getElementById('donation-popup');
+            const closeBtn = document.querySelector('.close-btn');
+
+            paymentMethodSelect.addEventListener('change', function () {
+                if (this.value === 'credit') {
+                    accountInfoDiv.style.display = 'block';
+                } else {
+                    accountInfoDiv.style.display = 'none';
+                }
+            });
+
+            donationForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const donationData = {
+                    amount: document.getElementById('amount').value,
+                    paymentMethod: document.getElementById('payment-method').value,
+                    accountNumber: document.getElementById('account-number').value,
+                    pin: document.getElementById('pin').value
+                };
+
+                fetch('http://localhost:3000/donation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(donationData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    donationPopup.style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            });
+
+            closeBtn.addEventListener('click', function () {
+                donationPopup.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === donationPopup) {
+                    donationPopup.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

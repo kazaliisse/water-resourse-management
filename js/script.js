@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
     //noor;s Donation 
     const donationForm = document.getElementById('donation-form');
     const donationPopup = document.getElementById('donation-popup');
