@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="path/to/your/favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .table {
+      width: 80%;
+      margin: 50px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .table thead th {
+      padding: 15px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .table tbody tr {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .table tbody td {
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: #fff;
+    }
+
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><img src="images-1/logo-1.png" alt="Logo"></div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="team.html">Team members</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donations.html">Donate</a></li>
+                <li><a href="admin.html">admin</a></li>
+            </ul>
+        </div>
+    </nav>
+  </header>
+  
+  <main>
+    <table id="donation-table" class="table">
+        <thead>
+            <tr>
+                <th>Donor Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Donation rows will be dynamically added here -->
+        </tbody>
+    </table>
+  </main>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tableBody = document.querySelector('#donation-table tbody');
+
+        // Fetch data from the JSON endpoint
+        fetch('http://localhost:3000/donation')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((donation, index) => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${donation.donorName}</td>
+                        <td>${donation.amount}</td>
+                        <td>${donation.date}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editDonation(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteDonation(${index})">Delete</button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            });
+
+        // Function to delete a donation
+        window.deleteDonation = function(index) {
+            fetch(`http://localhost:3000/donation/${index}`, {
+                method: 'DELETE',
+            })
+            .then(() => {
+                tableBody.deleteRow(index);
+            })
+            .catch(err => console.error('Error deleting donation:', err));
+        };
+
+        // Function to edit a donation
+        window.editDonation = function(index) {
+            const row = tableBody.rows[index];
+            const cells = row.cells;
+
+            const donation = {
+                donorName: cells[0].innerText,
+                amount: cells[1].innerText,
+                date: cells[2].innerText,
+            };
+
+            const newDonorName = prompt('Edit Donor Name:', donation.donorName);
+            const newAmount = prompt('Edit Amount:', donation.amount);
+            const newDate = prompt('Edit Date:', donation.date);
+
+            if (newDonorName && newAmount && newDate) {
+                const updatedDonation = {
+                    donorName: newDonorName,
+                    amount: newAmount,
+                    date: newDate,
+                };
+
+                fetch(`http://localhost:3000/donation/${index}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedDonation),
+                })
+                .then(() => {
+                    cells[0].innerText = newDonorName;
+                    cells[1].innerText = newAmount;
+                    cells[2].innerText = newDate;
+                })
+                .catch(err => console.error('Error updating donation:', err));
+            }
+        };
+    });
+  </script>
+</body>
+</html>
