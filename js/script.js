@@ -32,16 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
             contactPopup.style.display = 'block';
         });
 
-        closeContactPopup.addEventListener('click', () => {
-            contactPopup.style.display = 'none';
-        });
+    //     closeContactPopup.addEventListener('click', () => {
+    //         contactPopup.style.display = 'none';
+    //     });
 
-        window.addEventListener('click', (event) => {
-            if (event.target == contactPopup) {
-                contactPopup.style.display = 'none';
-            }
-        });
-    }
+    //     window.addEventListener('click', (event) => {
+    //         if (event.target == contactPopup) {
+    //             contactPopup.style.display = 'none';
+    //         }
+    //     });
+    // }
     //noor;s Donation 
     const donationForm = document.getElementById('donation-form');
     const donationPopup = document.getElementById('donation-popup');
