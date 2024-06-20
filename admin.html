@@ -60,7 +60,7 @@
     }
 
     .btn-warning:hover {
-      background-color: #e0a800;
+      background-color: black;
     }
 
     .btn-danger {
@@ -70,6 +70,58 @@
 
     .btn-danger:hover {
       background-color: #c82333;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -99,9 +151,9 @@
     <table id="donation-table" class="table">
         <thead>
             <tr>
-                <th>Donor Name</th>
+                <th>Credit</th>
                 <th>Amount</th>
-                <th>Date</th>
+                <th>Pin</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -110,6 +162,27 @@
         </tbody>
     </table>
   </main>
+  
+  <!-- The Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Donation</h2>
+      <div class="form-group">
+        <label for="editCredit">Credit</label>
+        <input type="text" id="editCredit">
+      </div>
+      <div class="form-group">
+        <label for="editAmount">Amount</label>
+        <input type="text" id="editAmount">
+      </div>
+      <div class="form-group">
+        <label for="editPin">Pin</label>
+        <input type="text" id="editPin">
+      </div>
+      <button id="saveChanges" class="btn btn-warning">Save Changes</button>
+    </div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -121,11 +194,10 @@
             .then(data => {
                 data.forEach((donation, index) => {
                     const row = document.createElement('tr');
-                    
                     row.innerHTML = `
-                        <td>${donation.donorName}</td>
+                        <td>${donation.paymentMethod}</td>
                         <td>${donation.amount}</td>
-                        <td>${donation.date}</td>
+                        <td>${donation.pin}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" onclick="editDonation(${index})">Edit</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteDonation(${index})">Delete</button>
@@ -147,42 +219,55 @@
             .catch(err => console.error('Error deleting donation:', err));
         };
 
-        // Function to edit a donation
+        // Modal handling
+        const modal = document.getElementById("editModal");
+        const span = document.getElementsByClassName("close")[0];
+        let currentIndex;
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
         window.editDonation = function(index) {
+            currentIndex = index;
             const row = tableBody.rows[index];
             const cells = row.cells;
 
-            const donation = {
-                donorName: cells[0].innerText,
-                amount: cells[1].innerText,
-                date: cells[2].innerText,
+            document.getElementById('editCredit').value = cells[0].innerText;
+            document.getElementById('editAmount').value = cells[1].innerText;
+            document.getElementById('editPin').value = cells[2].innerText;
+
+            modal.style.display = "block";
+        };
+
+        document.getElementById('saveChanges').onclick = function() {
+            const updatedDonation = {
+                paymentMethod: document.getElementById('editCredit').value,
+                amount: document.getElementById('editAmount').value,
+                pin: document.getElementById('editPin').value
             };
 
-            const newDonorName = prompt('Edit Donor Name:', donation.donorName);
-            const newAmount = prompt('Edit Amount:', donation.amount);
-            const newDate = prompt('Edit Date:', donation.date);
-
-            if (newDonorName && newAmount && newDate) {
-                const updatedDonation = {
-                    donorName: newDonorName,
-                    amount: newAmount,
-                    date: newDate,
-                };
-
-                fetch(`http://localhost:3000/donation/${index}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedDonation),
-                })
-                .then(() => {
-                    cells[0].innerText = newDonorName;
-                    cells[1].innerText = newAmount;
-                    cells[2].innerText = newDate;
-                })
-                .catch(err => console.error('Error updating donation:', err));
-            }
+            fetch(`http://localhost:3000/donation/${currentIndex}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedDonation),
+            })
+            .then(() => {
+                const row = tableBody.rows[currentIndex];
+                row.cells[0].innerText = updatedDonation.paymentMethod;
+                row.cells[1].innerText = updatedDonation.amount;
+                row.cells[2].innerText = updatedDonation.pin;
+                modal.style.display = "none";
+            })
+            .catch(err => console.error('Error updating donation:', err));
         };
     });
   </script>

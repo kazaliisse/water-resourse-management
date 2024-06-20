@@ -78,4 +78,4 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.classList.toggle('showing');
         menuToggle.classList.toggle('showing');
     });
-});
+}});
