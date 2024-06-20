@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // noor's Contact form 
-    const contactForm = document.getElementById('contact-form');
-    const contactPopup = document.getElementById('contact-popup');
-    if (contactForm && contactPopup) {
-        const closeContactPopup = contactPopup.querySelector('.close-btn');
-        contactForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            contactPopup.style.display = 'block';
-        });
+    // const contactForm = document.getElementById('contact-form');
+    // const contactPopup = document.getElementById('contact-popup');
+    // if (contactForm && contactPopup) {
+    //     const closeContactPopup = contactPopup.querySelector('.close-btn');
+    //     contactForm.addEventListener('submit', (event) => {
+    //         event.preventDefault();
+    //         contactPopup.style.display = 'block';
+    //     });
 
     //     closeContactPopup.addEventListener('click', () => {
     //         contactPopup.style.display = 'none';
